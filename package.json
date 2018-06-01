@@ -1,0 +1,30 @@
+{
+  "name": "UserModule",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.1",
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.0.4",
+    "tcomb-form-native": "^0.6.13"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.4",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.4",
+    "react-test-renderer": "16.3.1",
+    "eslint": "^3.17.0"
+  },
+  "peerDependencies": {
+    "eslint": "^4.0.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
