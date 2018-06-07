@@ -1,10 +1,15 @@
 import React from 'react';
-import { Button, View,AppRegistry,ScrollView,
-       Text,Alert,TextInput,Image,StyleSheet, 
-     } from 'react-native';
+import { Button, View,AppRegistry, Text,Alert,TextInput,Image,StyleSheet, } from 'react-native';
+import { createStackNavigator,DrawerNavigator,TabNavigator } from 'react-navigation'; // Version can be specified in package.json
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LoginScreen from '../components/LoginScreen';
+import SignUpScreen from '../components/SignUpScreen';
+import SearchScreen from '../components/SearchScreen';
+import FavouriteScreen from '../components/FavouriteScreen';
+import Drawernavigation from '../components/Drawernavigation';
 import CollectionNavigation from '../components/CollectionNavigation';
-  import Data from '../components/Data';
+import Data from '../components/Data';
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,36 +28,18 @@ export default class HomeScreen extends React.Component {
     name: '',
     nameValidate: true,
     password: '',
-    moduleName:"User Module",
-    homeMounted: true,
-
   }
-  }
-
+ }
 
  onMeet(){
   Alert.alert("Hello Ujjwal","This is just test method");
  }
 
- onChangeModule(newModuleName){
-  this.setState({
-    moduleName:newModuleName
-  });
- }
 
  handleChangeText = (typedText) =>{
     this.setState({text: typedText});
     
  }
-
- handleInsertedPassword(text){
-  this.setState((previousState)=>({
-      password:previousState.password,
-      password:''
-    }))
-
- }
-
 validate(text, type){
   alph=/^[a-zA-Z]+$/
   num = /^[0-9]+$/
@@ -63,16 +50,16 @@ validate(text, type){
          this.setState({nameValidate:false,})
       }
   }
- }
-  onChangeHomeMounted(){
-    this.state({
-      homeMounted: !this.state.homeMounted
-    }); 
-
+  if(type == 'password'){
+    if(alph.test(text)){
+       this.setState({paswordValidate:true,})
+     }else{
+        this.setState({passwordValidate:false,})
+     }
   }
-
+}
   render() {
-  var userArray={
+    var userArray={
     0:{
       name:"X",
       age:24,
@@ -82,50 +69,29 @@ validate(text, type){
       name:"Y",
       age:42,
       contact:[9832272745,9854727223]
-    },
-  };
+    },};
 
     var user ={
       name:"AnnaHathaway",
       contact:[989545334,983345345],
     };
-    
-  let homeComponent = "";
-    if(this.state.homeMounted){
-        homeComponent=(
-                <Data name={"ujjwal"} 
-                      initialAge={24} 
-                      user={user} 
-                      userArray={userArray}
-                      meet={this.onMeet}
-                      changeModule={this.onChangeModule.bind(this)}
-                      initialModuleName={this.state.moduleName}
-             />
-             );
 
-    }
 
-    let someText;
-   
     return (
   
-        <ScrollView >
-          <View style={styles.container}>
-            <Image style={styles.topLogo} source={require('../components/images/restro_logo_new.png')} />
+        <View style={styles.container}>
+          
+          <Image style={styles.topLogo} source={require('../components/images/restro_logo_new.png')} />
         
-           <Text style={styles.welcome}>
-             {this.state.moduleName} {someText == true ? "prajwal manandhar":"ujjwal manandhar"}
-           </Text>
+          <Text style={styles.welcome}>
+           User Module!
+          </Text>
 
-          <Text> Password is </Text>
-          <View style={styles.container}>
-            {homeComponent}
-          </View>
-          <Button
-              onPress={() => this.onChangeHomeMounted.bind(this)}
-              title="(Un)Mount Home component"
-              color="#841584"
-              />
+          <View style={styles.viewContainer}>
+             <Data name={"ujjwal"} initialAge={24} user={user} userArray={userArray}
+                meet={this.onMeet}
+             />
+           </View>  
 
           <TextInput
             style={[styles.nameStyle, !this.state.nameValidate ? styles.error:null]}
@@ -135,17 +101,13 @@ validate(text, type){
 
         <TextInput
            style={styles.passwordStyle}
-            placeholder="Password" 
-            value={this.state.password}
-            editable ={true}
-            onChangeText={(password)=> this.handleInsertedPassword(password)}
-        />
+            placeholder="Password" onChangeText={(text) => this.handleChangeText}
+           />
        
 
-        <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
-          title="PassData" style={styles.buttonContainer} />
-        
-        <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
+        <Button onPress={() =>this.props.navigation.navigate('LoginPage',{phoneNumber: this.state.text,
+            passwordText: this.state.text,
+            })}
         
             title="Login" style={styles.buttonContainer} />
         
@@ -161,11 +123,12 @@ validate(text, type){
               color="#841584"
               />
              
+              
         </View>
 
       </View>
+
       </View>
-      </ScrollView>
     );
   }
 }

@@ -40,4 +40,4 @@ container: {
     borderRadius: 50,
   },
 
-});
+})

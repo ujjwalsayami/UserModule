@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-	View,Text,Button,Image,StyleSheet,
+	View,Text,Button,Image,StyleSheet,TextInput
 
 } from 'react-native';
 
@@ -11,13 +11,12 @@ export default class Data extends React.Component{
 	  this.state = {
 	  	age: props.initialAge,
 	  	status:0,
-	  	contactnum: props.user.contact,
+	  	
+	  	moduleName: props.initialModuleName,
 	  };
 	  setTimeout(()=>{this.setState({
 		status: 1});},3000);
 	}
-
-	
 
 	onMakeMeOlder(){ //this is function 
 		this.setState({
@@ -30,7 +29,45 @@ export default class Data extends React.Component{
 			age:this.state.age - 1
 		});
 	}
+	onChangeModule(){
+		this.props.changeModule("Ujjwal")
+		//this.props.changeModule(this.state.moduleName)		
+	}
+	onHandleText(event){
+		
+			this.state.moduleName=event.target.value;
+		//this.props.moduleName(event.target.value);
+	}
 
+
+componentWillMount(){
+    console.log("Component Will Mount");
+ }
+
+ componentDidMount(){
+    console.log("Component Did Mount");
+ }
+
+ componentWillReceiveProps(nextProps){
+    console.log("Component will receive props",nextProps);
+ }
+
+ shouldComponentUpdate(nextProps, nextState){
+  console.log("should component update",nextProps,nextState);
+  return true;
+ }
+
+ componentWillUpdate(nextProps,nextState){
+  console.log("component will update ",nextProps, nextState);
+ }
+
+ componentDidUpdate(prevProps,prevState){
+  console.log("component did update",prevProps, prevState);
+ }
+
+ componentWillUnMount(){
+  console.log("component will unmount");
+ }
 	render(){
 		var text ="SomeText";
 		return(
@@ -45,18 +82,35 @@ export default class Data extends React.Component{
 					<Button title="Decrease Age" onPress={()=>this.onMakeMeYounger()} />
 					<Button title="Tap to say Hello!" style={{margin: 30}} onPress={this.props.meet} />
 				</View>
-				<Text> and phone number of AnnaHathaway is {this.state.contactnum[1]}
-				 </Text>
 				
+				 <View style={[styles.viewStyle, styles.buttonContainer]} >
+					<TextInput style={{width:200}} 
+						value={this.state.moduleName} 
+
+						onChangeText={(event)=>this.onHandleText(event)}/>
+					<Button title="Change Module Name" 
+						onPress={this.onChangeModule.bind(this)}/>
+				</View>
 				<Text> Data from another class {this.props.userArray[0].contact[0]}</Text>	
 			</View>
 			);
 	}
 	}
 
-	/*Data.propTypes = {
-		name: React.PropTypes.String,
-		 age: React.PropTypes.Number,
-		 user: React.PropTypes.object
 	
-	};*/
+    const styles = StyleSheet.create({
+  	container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  buttonContainer: {
+    marginTop: 20,
+  },
+  viewStyle:{
+  	flexDirection: 'row' , 
+  },
+  
+});
+

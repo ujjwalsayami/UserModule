@@ -10,13 +10,31 @@ import FavouriteScreen from '../components/FavouriteScreen';
 //import Drawernavigation from '../components/Drawernavigation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {createBottomTabNavigator,} from 'react-navigation';
+import {TabNavigator,createStackNavigator,
+         TabBarBottom,DrawerNavigator} from 'react-navigation';
 
 class LoginScreen extends React.Component {
- 
+  static navigationOptions ={
+    drawerLabel:'Logins',
+    drawerIcon: ({tintColor}) =>(
+      <Image style={styles.topLogo}
+        source={require('../components/images/homebtnimg.png')}
+      />
+      ),
+    tabBarLabel:'Home',
+    inactiveBackgroundColor:'#595959',
+    activeBackgroundColor: '#FF4500',
+    style:{
+
+      backgroundColor: '#FF4500',   
+    },
+   
+};
+
 constructor(props) {
    super(props);
  
+    this.state = {phoneNumber: this.props.navigation.state.params.phoneNumber,};
  }
  
   render() {
@@ -28,10 +46,10 @@ constructor(props) {
         </Text>
 
         <Text style={styles.textStyle}>
-          Welcome : 
+          Welcome : {this.state.phoneNumber}
         </Text>
         <Text>
-          Your PhonePassword is : 
+          Your PhonePassword is : {this.state.passwordText}
         </Text>
          
         </View>
@@ -79,13 +97,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export default createBottomTabNavigator ({
+export default TabNavigator ({
   Home: {screen: LoginScreen,},
   Search: {screen: SearchScreen,},
   Favourite:{screen: FavouriteScreen,},
 
   },
 {
+ 
   navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
@@ -102,10 +121,8 @@ export default createBottomTabNavigator ({
         // icon component from react-native-vector-icons
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
-    }),  
-
+    }),
   tabBarOptions: {
-
       showIcon: true,
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
@@ -114,6 +131,11 @@ export default createBottomTabNavigator ({
        padding:0,
     },
     },
+   
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: 'bottom',
+    animationEnabled : true,
+    swipeEnabled: true,
     
    },
   );

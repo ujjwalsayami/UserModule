@@ -7,13 +7,30 @@ import{
 } from 'react-native';
 import SearchScreen from '../components/SearchScreen';
 import FavouriteScreen from '../components/FavouriteScreen';
+//import Drawernavigation from '../components/Drawernavigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {createDrawerNavigator} from 'react-navigation';
+import {TabNavigator,createStackNavigator,
+         TabBarBottom,DrawerNavigator} from 'react-navigation';
 
 class Drawernavigation extends React.Component {
+  static navigationOptions ={
+    drawerLabel:'Logins',
+    drawerIcon: ({tintColor}) =>(
+      <Image style={styles.topLogo}
+        source={require('../components/images/homebtnimg.png')}
+      />
+      ),
+    tabBarLabel:'Home',
+    inactiveBackgroundColor:'#595959',
+    activeBackgroundColor: '#FF4500',
+    style:{
+
+      backgroundColor: '#FF4500',   
+    },
+   
+};
  
- render() {
- 
+  render() {
     return (
      <View style={styles.container}>        
         <Text style={styles.textStyle}>
@@ -21,8 +38,8 @@ class Drawernavigation extends React.Component {
         </Text>
 
          <Button title="Open Drawer"
-              onPress={()=>this.props.navigation.toggleDrawer() }
-        />
+              onPress={()=>this.props.navigation.navigate('DrawerNav')
+              }/>
         
       </View>
    
@@ -55,9 +72,13 @@ const styles = StyleSheet.create({
 });
 
 
-export default createDrawerNavigator ({
+export default DrawerNavigator ({
+  //Home: {screen: LoginScreen,},
   DrawerNav:{screen: Drawernavigation,},
+  Search: {screen: SearchScreen,},
+  Favourite:{screen: FavouriteScreen,},
+  },
 
-});
+  );
   
   
