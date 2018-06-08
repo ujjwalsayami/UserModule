@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-	View, Text,
+	View, Text, FlatList,
 	Button, Image,StyleSheet,
 } from 'react-native';
 import { createDrawerNavigator ,createMaterialTopTabNavigator ,TabBarTop }from 'react-navigation'; // Version can be specified in package.json
@@ -17,8 +17,59 @@ import SignUpScreen from '../components/SignUpScreen';
 import Drawernavigation from '../components/Drawernavigation';
 import SearchScreen from '../components/SearchScreen';
 import FavouriteScreen from '../components/FavouriteScreen';
+import { List,ListItem } from 'react-native-elements';
 
 class CollectionNavigation extends React.Component{
+
+      state = {
+        seed : 1,
+        page: 1,
+        users:[],
+        isLoading: false,
+        isRefreshing: false,
+      };
+
+      handleRefresh = ()=>{
+        this.state({
+          seed: this.state.seed + 1,
+          isRefreshing : true,
+
+        }, ()=>{
+          this.loadUsers();
+        });
+      };
+
+      handleLoadMore = ()=>{
+        this.setState({
+          page: this.state.page + 1
+        }, ()=>{
+          this.loadUsers();
+        });
+};
+
+    componentDidMount(){
+        this.loadUsers();
+
+    };
+
+
+    loadUsers = ()=>{
+      const{ users, seed, page } = this.state;
+      this.setState({ isLoading: true});
+
+      fetch('https://randomuser.me/api/?seed=$(seed)&page=$(page)&results=20')
+        .then((res) => res.json())
+        .then((res) => {
+          this.setState({
+            users: page === 1 ? res.results : [...users, ...res.results],
+            isRefreshing: false,
+          });
+        })
+        .catch( (err) =>{
+          console.error(err);
+        });
+    };
+
 	   navigationOptions:()=>({
         title:'Collection Nav',
         headerStyle:{
@@ -30,14 +81,37 @@ class CollectionNavigation extends React.Component{
             
       });
   render(){
-
+    const{users , isRefreshing } = this.state;
 		return(
 			<View style={styles.container}>        
         	
       		  <Text style={styles.textStyle}>
           		Welcome to my World!
        		 </Text>
-       	
+       	<View style={{margin: 55, width:'100%' ,}}>
+          <List >
+          <FlatList
+              data={users}
+              renderItem={({item})=>(
+                <ListItem style={{width:'100%' ,color:'red', fontSize: 20 }}
+                  
+                  roundAvatar
+                  title={item.name.first}
+                  subtitle={item.email}
+                  username ={item.login.username}
+                  avatar={{uri: item.picture.thumbnail}}
+                  badge={{ value: item.id.value, textStyle: { color: 'orange' }, containerStyle: { marginTop: -20 } }}
+                  />
+                )}
+              keyExtractor={i => i.email}
+              refreshing={isRefreshing}
+              onRefresh={this.handleRefresh}
+              onEndReached={this.handleLoadMore}
+              onEndThreshold={0}
+              />
+           </List>
+        </View>
+
       </View>
 			);
 	}
@@ -103,9 +177,9 @@ const TabNav = createMaterialTopTabNavigator (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    
     backgroundColor: '#ffffff',
+    width: '100%'
   },
   topLogo: {
     justifyContent: 'center',
@@ -119,7 +193,7 @@ const styles = StyleSheet.create({
     color: '#111111',
     textAlign:'center',
     margin: 30,
-    marginTop: 20,
+    paddingTop:20,
     fontSize: 20,
   }
 });
