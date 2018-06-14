@@ -2,9 +2,10 @@ import React from 'react';
 import { Button, View,AppRegistry,ScrollView,
        Text,Alert,TextInput,Image,StyleSheet, 
      } from 'react-native';
+     
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CollectionNavigation from '../components/CollectionNavigation';
-  import Data from '../components/Data';
+import Data from '../components/Data';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -25,8 +26,7 @@ export default class HomeScreen extends React.Component {
     password: '',
     moduleName:"User Module",
     homeMounted: true,
-
-  }
+   }
   }
 
 
@@ -141,8 +141,7 @@ validate(text, type){
             onChangeText={(password)=> this.handleInsertedPassword(password)}
         />
        
-
-        <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
+      <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
           title="PassData" style={styles.buttonContainer} />
         
         <Button onPress={() =>this.props.navigation.navigate('LoginPage')}

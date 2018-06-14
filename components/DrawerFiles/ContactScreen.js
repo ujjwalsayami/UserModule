@@ -7,13 +7,13 @@ import{
 
 export default class ContactScreen extends React.Component {
   static navigationOptions ={
-    drawerLabel:'Logins',
+    drawerLabel:'About us',
     drawerIcon: ({tintColor}) =>(
       <Image style={styles.topLogo}
         source={require('../../components/images/homebtnimg.png')}
       />
       ),
-    tabBarLabel:'Home',
+    tabBarLabel:'Abput us',
     inactiveBackgroundColor:'#595959',
     activeBackgroundColor: '#FF4500',
     style:{
@@ -27,7 +27,7 @@ export default class ContactScreen extends React.Component {
     return (
      <View style={styles.container}>        
         <Text style={styles.textStyle}>
-           Contact screen Successfull!
+           About us screen Successfull!
         </Text>
 
         

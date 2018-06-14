@@ -1,4 +1,3 @@
-
 import React from 'react';
 import{
     StyleSheet,TextInput,
@@ -17,7 +16,7 @@ class Drawernavigation extends React.Component {
     return (
      <View style={styles.container}>        
         <Text style={styles.textStyle}>
-           Drawer Successfull!
+           This is exit
         </Text>
 
          <Button title="Open Drawer"
