@@ -11,7 +11,7 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Home',
     headerStyle:{
-      backgroundColor: '#ff6347',
+      backgroundColor: '#ef800d',
     },
     headerTitleStyle:{
       color: '#fff'
@@ -99,8 +99,7 @@ validate(text, type){
                       userArray={userArray}
                       meet={this.onMeet}
                       changeModule={this.onChangeModule.bind(this)}
-                      initialModuleName={this.state.moduleName}
-             />
+                      initialModuleName={this.state.moduleName}/>
              );
 
     }
@@ -124,46 +123,42 @@ validate(text, type){
           <Button
               onPress={() => this.onChangeHomeMounted.bind(this)}
               title="(Un)Mount Home component"
-              color="#841584"
-              />
+              color="#841584"/>
 
           <TextInput
             style={[styles.nameStyle, !this.state.nameValidate ? styles.error:null]}
             placeholder="Phone number"           
-            onChangeText={(text) => this.validate(text,'username')} 
-          />
+            onChangeText={(text) => this.validate(text,'username')}  />
 
-        <TextInput
-           style={styles.passwordStyle}
-            placeholder="Password" 
-            value={this.state.password}
-            editable ={true}
-            onChangeText={(password)=> this.handleInsertedPassword(password)}
-        />
+          <TextInput
+             style={styles.passwordStyle}
+              placeholder="Password" 
+              value={this.state.password}
+              editable ={true}
+              onChangeText={(password)=> this.handleInsertedPassword(password)} />
        
-      <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
-          title="PassData" style={styles.buttonContainer} />
+            <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
+                title="PassData" style={styles.buttonContainer} />
+              
+              <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
+              
+                  title="Login" style={styles.buttonContainer} />
         
-        <Button onPress={() =>this.props.navigation.navigate('LoginPage')}
         
-            title="Login" style={styles.buttonContainer} />
-        
-        
-      <View style={styles.signup}>
-        <Text style={styles.textStyle}>
-          Don't have an account, Sign Up here! 
-           </Text>
-       <View style={styles.buttonContainer}>
-           <Button
-              onPress={() => this.props.navigation.navigate('SignUpPage')}
-              title="Sign Up"
-              color="#841584"
-              />
+            <View style={styles.signup}>
+              <Text style={styles.textStyle}>
+                Don't have an account, Sign Up here! 
+              </Text>
+             <View style={styles.buttonContainer}>
+                 <Button
+                    onPress={() => this.props.navigation.navigate('SignUpPage')}
+                    title="Sign Up"
+                    color="#841584" />
              
-        </View>
+            </View>
 
-      </View>
-      </View>
+          </View>
+       </View>
       </ScrollView>
     );
   }
@@ -172,9 +167,8 @@ validate(text, type){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    
   },
   signup: {
     flex: 1,

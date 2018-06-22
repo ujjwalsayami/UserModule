@@ -4,6 +4,7 @@ import{
     Text,Image,Button,Alert,View,
 
 } from 'react-native';
+import HeaderComponent from './HeaderComponent';
 
 export default class ContactScreen extends React.Component {
   static navigationOptions ={
@@ -25,13 +26,14 @@ export default class ContactScreen extends React.Component {
  
   render() {
     return (
-     <View style={styles.container}>        
-        <Text style={styles.textStyle}>
-           About us screen Successfull!
-        </Text>
+      <View style={{flex:1}}>
+       <HeaderComponent {...this.props} />
+        <View style={styles.container}>   
 
-        
-        
+          <Text style={styles.textStyle}>
+             About us screen Successfull!
+          </Text>
+        </View>
       </View>
    
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import{
-    StyleSheet,TextInput,
+    StyleSheet,TextInput,BackHandler,
     Text,Image,Button,Alert,View,
 
 } from 'react-native';
@@ -21,7 +21,11 @@ class Drawernavigation extends React.Component {
 
          <Button title="Open Drawer"
               onPress={()=>this.props.navigation.toggleDrawer() }
-        />
+          />
+          <Button title="Exit"
+            onPress={()=>{
+              return BackHandler.exitApp();
+            }}/>
         
       </View>
    

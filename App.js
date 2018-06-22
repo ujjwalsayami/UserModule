@@ -24,7 +24,7 @@ const RootStack = createStackNavigator(
         title:'Sign UpPage',
 
         headerStyle:{
-          backgroundColor: '#ff6347',
+          backgroundColor: '#ef800d',
         },
         headerTitleStyle:{
          color: '#fff'
@@ -37,7 +37,7 @@ const RootStack = createStackNavigator(
         header: null,
 
         headerStyle:{
-          backgroundColor: '#ff6347',
+          backgroundColor: '#ef800d',
         },
         headerTitleStyle:{
          color: '#fff'
@@ -48,7 +48,7 @@ const RootStack = createStackNavigator(
 
   },
   {
-    initialRouteName: 'LoginPage',
+    initialRouteName: 'Home',
   },
     
   

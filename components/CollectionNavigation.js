@@ -19,6 +19,7 @@ import BookmarkReservationScreen from '../components/DrawerFiles/BookmarkReserva
 import PlaceScreen from '../components/DrawerFiles/PlaceScreen';
 import ShareScreen  from '../components/DrawerFiles/ShareScreen';
 import HeaderComponent from '../components/DrawerFiles/HeaderComponent';
+import TabBarHeader from '../components/DrawerFiles/TabBarHeader';
 
 import LoginScreen from '../components/LoginScreen';
 import SignUpScreen from '../components/SignUpScreen';
@@ -92,9 +93,8 @@ class CollectionNavigation extends React.Component{
     const{users , isRefreshing } = this.state;
 		return(
       <View style={{flex:1, flexDirection:'column' }}>
-       
-       <HeaderComponent {...this.props}  />
-
+        //<HeaderComponent {...this.props}/>      
+        
   			<View style={styles.container}>        
           	<Image style={styles.imageSize}
               source={require('../components/images/mkbhd1.jpg')}
@@ -130,9 +130,10 @@ class CollectionNavigation extends React.Component{
       
 			);
 	}
-
 }
-/*const TabNav = createMaterialTopTabNavigator (
+
+   
+const TabNav = createMaterialTopTabNavigator (
   {
     CollectionHome: {screen: CollectionNavigation,
       navigationOptions: () =>({
@@ -166,7 +167,7 @@ class CollectionNavigation extends React.Component{
       }),
         },
       },{
-       
+    initialRouteName:'CollectionHome', 
      swipeEnabled: true,
       animationEnabled :true,
      tabBarOptions: {
@@ -188,22 +189,30 @@ class CollectionNavigation extends React.Component{
       },
     }
   });
-*/
+
 const DrawerContent = (props) => (
   <View>
     <View
       style={{
-        backgroundColor: '#f50057',
-        height: 140,
+        backgroundColor: '#616161',
+        height: 200,
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
-      <Text style={{ color: 'white', fontSize: 30 }}>
-        Header
-      </Text>
+    <View style={{flexDirection: 'column', justifyContent: 'center',}}>
+      <Image
+        style={{width:100, height:100,resizeMode: Image.resizeMode.center, borderRadius: 12, }}
+        source={require('../components/images/profileicon.png')}
+           />
+        <Text style={{ color: 'white', fontSize: 20 }}>
+          Michael Jordan
+       </Text>
+
     </View>
-    <HeaderComponent {...props} />
+    </View>
+
+    <DrawerItems {...props} />
   </View>
 )
 
@@ -243,9 +252,7 @@ const styles = StyleSheet.create({
 
 
 let RouteConfigs ={
-  /*TabNav: {
-    screen: TabNav,
-  },*/
+  
   Home:{
     screen:HomeDrawer,
       navigationOptions:()=>({
@@ -277,7 +284,6 @@ let RouteConfigs ={
     screen:SearchScreen,
     navigationOptions:()=>({
 
-     // drawerWidth :500,
      drawerLabel:'Search',
       drawerIcon:({tintColor}) =>{
           return(
@@ -290,7 +296,6 @@ let RouteConfigs ={
     screen:BookmarkReservationScreen,
     navigationOptions:()=>({
 
-     // drawerWidth :500,
       drawerLabel:'Bookmark and Reservation',
        drawerIcon:({tintColor}) =>{
           return(
@@ -308,8 +313,7 @@ let RouteConfigs ={
         drawerIcon: ({ tintColor }) => (
         <Image
           source={require('../components/images/homebtnimg.png')}
-          style={[styles.icon,{tintColor: tintColor}]}
-        />
+          style={[styles.icon,{tintColor: tintColor}]}/>
     ),
   }),
 },
@@ -345,8 +349,7 @@ let RouteConfigs ={
      
      navigationOptions:()=>({
 
-      //drawerWidth :500,
-      drawerLabel:'Exit',
+     drawerLabel:'Exit',
       padding: 50,
 
           drawerIcon:({tintColor}) =>{
@@ -355,17 +358,16 @@ let RouteConfigs ={
         }, 
        }),
   },
-  
-    contentComponent: DrawerContent,
-  
+ 
 }
 
 let DrawerNavigatorConfig ={
   initialRouteName:'Home',
   drawerWidth :300,
+  contentComponent:DrawerContent,
   drawerPosition:'left',
   contentOptions: {
-        activeTintColor: 'red',
+      activeTintColor: 'red',
 },
 
 }

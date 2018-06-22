@@ -1,8 +1,11 @@
 import React from 'react';
-import { FlatList, Image,ActivityIndicator,ViewPagerAndroid,Alert, StyleSheet,Text, View  } from 'react-native';
+import { FlatList, Image,ActivityIndicator,
+        ViewPagerAndroid,Alert, StyleSheet,Text, View 
+   } from 'react-native';
 import CollectionNavigation from '../../components/CollectionNavigation';
-import Swipeout from 'react-native-swipeout';
+
 import HeaderComponent from '../../components/DrawerFiles/HeaderComponent';
+import TabBarHeader from '../../components/DrawerFiles/TabBarHeader';
 
 
 export default class ProfileScreen extends React.Component {
@@ -76,7 +79,7 @@ export default class ProfileScreen extends React.Component {
     };
 
     return(
-    //<Swipeout {...swipeSettings}>
+    
       <View style={{flex: 1,}}>
          <HeaderComponent {...this.props}  />
         <ViewPagerAndroid
@@ -96,6 +99,7 @@ export default class ProfileScreen extends React.Component {
             </View>
        </ViewPagerAndroid>
 
+        
         <FlatList
           data={this.state.data}
           renderItem={({item}) => 
@@ -115,7 +119,7 @@ export default class ProfileScreen extends React.Component {
          keyExtractor={(item, index) => index.toString()}
         />
       </View>
-  //</Swipeout>
+  
    );
   }
 }
@@ -146,6 +150,7 @@ const styles=StyleSheet.create({
             },
     viewPager: {
             flex: 1,
+            height: 50,
             },
     pageStyle: {
             alignItems: 'center',
