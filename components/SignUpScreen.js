@@ -1,11 +1,12 @@
 import React from 'react';
 import{
     StyleSheet,TextInput,ScrollView,
-    Text,Image,Button,Alert,View,Picker
-
+    Text,Image,Button,Alert,View,Picker,
+    TouchableHighlight,DatePickerAndroid
 } from 'react-native';
 
 import { createStackNavigator } from 'react-navigation'; 
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 
 export default class SignUpScreen extends React.Component {
@@ -15,29 +16,90 @@ export default class SignUpScreen extends React.Component {
     this.state = {
       pickerSelection:'Gender*',
       preferencePicker:'Preference*',
+      selectedDate:'',
     };
   }
 
+  renderDatePickerAndroid = ()=>{
+   try {
+      const {action, year, month, day} = DatePickerAndroid.open({
+        // Use `new Date()` for current date.
+        // May 25 2020. Month 0 is January.
+        date: new Date(),
+        mode:'default'
+      });
+      if (action !== DatePickerAndroid.dismissedAction) {
+        // Selected year, month (0-11), day
+        const d = new Date()
+        const date = d.toDateString();
+          this.setState({
+                      selectedDate: date
+                    });
+           console.log('Selected date is', date);
+        }
+      }
+
+     catch ({code, message}) {
+      console.warn('Cannot open date picker', message);
+    }
+
+  }
 
    render() {
+
     return (
       <ScrollView>
        <View style={{flex:1 , }}>
         <View style={{ alignSelf: 'center',width: '50%', marginTop: 10, marginBottom:10,}}>
          <Image style={styles.restroLogo} 
           source={require('../components/images/ic_restro_logo_full.png')}/>
-           <Text style={styles.textStyle}>
+           <Text style={{color: 'black',
+              fontSize: 20,
+               marginTop:20,}}>
                Sign Up for Free!
             </Text>
 
             <TextInput placeholder="First Name*"
               underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle}  editable = {true} />
+              style={styles.textInputStyle}  editable = {true} 
+              onEndEditing={()=>this.refs.lastName.focus()}
+                />
 
             <TextInput placeholder="Last Name*"
              underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle} />
+              style={styles.textInputStyle}
+              ref={"lastName"}
+              />
           
+            <View style={{flexDirection: 'row', }}>
+              <Text style={styles.textStyle} >
+                {this.state.selectedDate}
+              </Text>
+              <TouchableHighlight onPress={this.renderDatePickerAndroid}>
+                <SimpleLineIcons name="options" 
+                  size={25} style={styles.iconStyle} 
+                  />
+              </TouchableHighlight>
+            </View>
+              
+            <TextInput placeholder="Address*"
+              underlineColorAndroid={'transparent'}
+              style={styles.textInputStyle}  
+              onEndEditing={()=>this.refs.email.focus()}
+               />
+
+            <TextInput placeholder="Email*"
+              underlineColorAndroid={'transparent'}
+              style={styles.textInputStyle}
+              keyboardType='email-address'
+              ref={"email"}
+              onEndEditing={()=> this.refs.mobile.focus()} />
+          
+            <TextInput placeholder="Mobile No.*"
+              underlineColorAndroid={'transparent'}
+              style={styles.textInputStyle}
+              ref={"mobile"} />
+
             <View style={styles.pickerView}>
              
              <Picker
@@ -49,34 +111,26 @@ export default class SignUpScreen extends React.Component {
                <Picker.Item label="Female" value="Female" />
               </Picker>
           </View>
-              
-            <TextInput placeholder="Address*"
-              underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle}  editable = {true} />
-
-            <TextInput placeholder="Email*"
-              underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle} />
-          
-            <TextInput placeholder="Mobile No.*"
-              underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle} />
-
-            <TextInput placeholder="Gender*"
-              underlineColorAndroid={'transparent'}
-             style={styles.textInputStyle} />
 
             <TextInput placeholder="Username*"
               underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle} />
+              style={styles.textInputStyle} 
+              onEndEditing={()=>this.refs.password.focus()}
+              />
             
             <TextInput placeholder="Password*"
               underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle} />
+              style={styles.textInputStyle}
+              secureTextEntry 
+              ref={"password"}
+              onEndEditing={()=>this.refs.repassword.focus()}
+              />
             
             <TextInput placeholder="Re-enter Password*"
              underlineColorAndroid={'transparent'}
-              style={styles.textInputStyle} />
+              style={styles.textInputStyle}
+              secureTextEntry 
+              ref={"repassword"}/>
            
            
               <Picker
@@ -119,10 +173,11 @@ const styles = StyleSheet.create({
 
   textStyle: {
     color: 'black',
-    textAlign:'center',
-    width:200,
+    width:'92%',
     fontSize: 20,
-    marginTop:20,
+     marginTop:20,
+    borderBottomColor: '#f7bf86',
+    borderBottomWidth: 1
   },
 
    textInputStyle:{
@@ -148,6 +203,10 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       width:'100%',
       borderBottomColor: '#F7BF86', 
+    },
+    iconStyle:{
+      padding: 10 ,
+      backgroundColor: '#cccccc'
     }
  
 });

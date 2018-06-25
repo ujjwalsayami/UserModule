@@ -6,6 +6,7 @@ import { Button, View,AppRegistry,ScrollView,
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CollectionNavigation from '../components/CollectionNavigation';
 import Data from '../components/Data';
+var FbLogin = require('../components/FbLogin');
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -156,7 +157,8 @@ validate(text, type){
                     color="#841584" />
              
             </View>
-
+              <Text style={styles.label}>Welcome to the Facebook SDK for React Native!</Text>
+                <FbLogin />
           </View>
        </View>
       </ScrollView>
@@ -228,5 +230,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',    
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'normal',
+    marginBottom: 48,
   },
 });

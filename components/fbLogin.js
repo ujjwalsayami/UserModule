@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { LoginButton } from 'react-native-fbsdk';
 
-export default class fbLogin extends Component {
+export default class FbLogin extends Component {
   render() {
     return (
       <View>
@@ -25,4 +25,4 @@ export default class fbLogin extends Component {
   }
 };
 
-module.exports = fbLogin;
+module.exports = FbLogin;

@@ -35,8 +35,7 @@ export default class HeaderComponent extends React.Component{
 					        style={{width:"3%", height:'56%',alignSelf: 'flex-end',marginRight: 20  }}
 					     	source={require('../../components/images/option-vertical.png')}
 				        	/>
-				   		
-		        	
+				   	
 		        	</View>
 			</View>   
 			);

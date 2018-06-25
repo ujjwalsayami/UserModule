@@ -1,6 +1,6 @@
 import React from 'react';
 import{
-    StyleSheet,TextInput,
+    StyleSheet,TextInput,Dimensions,
     Text,Image,Button,Alert,View,SectionList
 
 } from 'react-native';
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 		padding: 15,
 		shadowRadius: 2,
 		elevation: 3,
-		width: '80%',
+		width: Dimensions.get('window').width / 1.2,
 		height:'35%',
 		alignSelf: 'center' 
 	},
