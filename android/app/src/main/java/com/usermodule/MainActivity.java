@@ -33,8 +33,21 @@ public class MainActivity extends ReactActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        PrintHashKey();
+       // PrintHashKey();
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.usermodule",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
 
+        } catch (NoSuchAlgorithmException e) {
+
+        }
         super.onCreate(savedInstanceState, persistentState);
 
     }

@@ -7,13 +7,13 @@ export default class FbLogin extends Component {
     return (
       <View>
         <LoginButton
-          publishPermissions={["email"]}
+          readPermissions={["public_profile", "email"]}
           onLoginFinished={
             (error, result) => {
               if (error) {
-                alert("Login failed with error: " + error.message);
+                alert("Login failed with error: " + error);
               } else if (result.isCancelled) {
-                alert("Login was cancelled");
+                alert("Login was cancelled"+error);
               } else {
                 alert("Login was successful with permissions: " + result.grantedPermissions)
               }

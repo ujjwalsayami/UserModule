@@ -1,7 +1,11 @@
 import React from 'react';
 import { Button, View,AppRegistry,ScrollView,
        Text,Alert,TextInput,Image,StyleSheet, 
+       TouchableHighlight
      } from 'react-native';
+
+import { LoginButton,LoginManager } from 'react-native-fbsdk';
+
      
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CollectionNavigation from '../components/CollectionNavigation';
@@ -71,6 +75,23 @@ validate(text, type){
     }); 
 
   }
+
+  _fbLoginManager() {
+    LoginManager.logInWithReadPermissions(["public_profile"]).then(
+      function(result) {
+        if (result.isCancelled) {
+          alert('Login was cancelled');
+        } else {
+          alert('Login was successful with permissions: '
+            + result.grantedPermissions.toString());
+        }
+      },
+      function(error) {
+        alert('Login failed with error: ' + error);
+      }
+    );
+  }
+
 
   render() {
   var userArray={
@@ -145,7 +166,13 @@ validate(text, type){
               
                   title="Login" style={styles.buttonContainer} />
         
-        
+                 <Text style={styles.label}>Welcome to the Facebook SDK for React Native!</Text>
+                <FbLogin />
+                <TouchableHighlight
+                  onPress={this._fbLoginManager}>
+                  <Text>Login with fbLoginManager</Text>
+                </TouchableHighlight>
+             
             <View style={styles.signup}>
               <Text style={styles.textStyle}>
                 Don't have an account, Sign Up here! 
@@ -155,10 +182,9 @@ validate(text, type){
                     onPress={() => this.props.navigation.navigate('SignUpPage')}
                     title="Sign Up"
                     color="#841584" />
-             
+
             </View>
-              <Text style={styles.label}>Welcome to the Facebook SDK for React Native!</Text>
-                <FbLogin />
+              
           </View>
        </View>
       </ScrollView>
